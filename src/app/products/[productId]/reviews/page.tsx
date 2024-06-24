@@ -1,22 +1,30 @@
+"use client";
+import { notFound } from "next/navigation";
 
-import { metadata } from "@/src/layout";
-import { Metadata } from "next";
-type Props = {
-    params: {
-        productId: string
-    };
-};
-export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
-    const title = await new Promise(resolve => {
-        setTimeout(() => {
-            resolve('iPhone ${params.productId}')
-        }, 100)
-    });
-    return {
-        title: 'Product ${title}',
-    };
-};
+function getRandomInt(count: number) {
+    return Math.floor(Math.random() * count);
 
-export default function ProductDetail({ params }: Props){
-  return <h1>Details about product{params.productId}</h1>;
+}
+export default function ReviewDetail({
+    params, }: {
+        params: {
+            productId: string;
+            reviewId: string;
+
+        };
+
+    }) {
+    // const random = getRandomInt(2)
+    // if (random === 1) {
+    //     throw new Error('Error loading review');
+    // }
+    if (parseInt(params.reviewId) > 1000) {
+        notFound();
+
+    }
+    return (
+        <h1>
+            Review {params.reviewId} for product {params.productId}
+        </h1>
+    );
 }
